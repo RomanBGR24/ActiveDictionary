@@ -7,6 +7,10 @@ RUN addgroup -S app && adduser -S app -G app
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
 RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/staticfiles && \
+    mkdir $APP_HOME/staticfiles/admin && \
+    mkdir $APP_HOME/staticfiles/main_app
+
 WORKDIR $APP_HOME
 
 # install dependencies
@@ -22,3 +26,5 @@ COPY . $APP_HOME
 
 RUN chown -R app:app $APP_HOME
 USER app
+
+ENTRYPOINT ["/home/app/web/entrypoint.sh"]

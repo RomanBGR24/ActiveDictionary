@@ -4,12 +4,19 @@ services:
   web:
     build: ./actdict
     command: gunicorn actdict.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_files:/home/app/web/staticfiles
     expose:
       - 8000
 
   nginx:
     build: ./nginx
+    volumes:
+      - static_files:/home/static
     ports:
       - 80:80
     depends_on:
       - web
+
+volumes:
+  static_files:
