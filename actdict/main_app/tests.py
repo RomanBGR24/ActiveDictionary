@@ -5,4 +5,4 @@ class Main_app(TestCase):
     def test_index_page_returns_correct_html(self):
         response = self.client.get('/')
 
-        self.assertTemplateUsed(response, 'index.html')
+        self.assertTemplateUsed(response, 'main_app/index.html')
