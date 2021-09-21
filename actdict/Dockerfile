@@ -6,12 +6,15 @@ RUN mkdir -p /home/app
 RUN addgroup -S app && adduser -S app -G app
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
-RUN mkdir $APP_HOME
-RUN mkdir $APP_HOME/staticfiles && \
+RUN mkdir $APP_HOME && \
+    mkdir $APP_HOME/staticfiles && \
     mkdir $APP_HOME/staticfiles/admin && \
     mkdir $APP_HOME/staticfiles/main_app
 
 WORKDIR $APP_HOME
+
+# install postgresql dependencies
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 
 # install dependencies
 RUN pip install --upgrade pip
